@@ -78,14 +78,23 @@ let openedDiv=0;
 
 // Delegating the event listener
 gameContainer.addEventListener('click',function(e){
+  
+  //looping through classes for 'Done' class
+  for(let class1 of e.target.classList){
+      //if the div has already been clicked do nothing
+      if(class1=='Done'){ 
+        return;
+      }
+    }
+
   //increase opened div by 1, if less or equal to 2 run code, unless wait for  second1
   openedDiv++;
   if(openedDiv<=2){
     //loop through parent's classes  
     for(let class1 of e.target.classList){
       //if the div has already been clicked do nothing
-      if(class1=='Done'){
-        console.log(yes);
+      if(class1=='Done'){        
+        noEvent(e)
         return;
       }
       if(class1=='color'){

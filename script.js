@@ -117,6 +117,7 @@ gameContainer.addEventListener('click',function(e){
 let firstDivColor=null;
 var index=null;
 var score=100;
+var divsOpened=0;
 //saving the lowest score
 localStorage.setItem('LowestScore',score);
 
@@ -153,13 +154,15 @@ function handleCardClick(event) {
       //if the divs color match 
       if(divColor==firstDivColor){
         //if its a match add a class to remove the onclick listener
+        divsOpened++;
         event.target.className+=" Done";
         event.target.parentNode.children[index].className+=" Done";
         console.log(event.target.classList);
         console.log(event.target.parentNode.children[index].classList);
         firstDivColor=null;
         openedDiv=0;
-        return;
+        
+        
       }
       else{
         //if the colors dont match remove the colors after one second and reset the firstDiv variables
@@ -190,9 +193,19 @@ function handleCardClick(event) {
       openedDiv=1;
       return;
     }
+  }
+  //displaying score at end of game
+  if(divsOpened==5){
+    let b=setTimeout(function(){
+      alert("Your score is "+score);
+      if (confirm("Restart!")) {
+        replay();
+      } else {
+      }
+      clearTimeout(b);
+    },500);
+    
 
-    
-    
   }
   
 }
@@ -225,21 +238,27 @@ function restartBtn(){
   createDisplay(shuffledColors);
   restartBtn.addEventListener('click',function(e){
 
-    //remove divs
-    while (gameContainer.hasChildNodes()) {
-      gameContainer.removeChild(gameContainer.lastChild);
-    }
-
-    //clear variables
-    score=100;
-    firstDivColor=null;
-    index=null;
-
-    //create display
-    shuffledColors = shuffle(COLORS)
-    createDisplay(shuffledColors);
+    replay();
   });
   
+}
+
+function replay(){
+  
+  //remove divs
+  while (gameContainer.hasChildNodes()) {
+    gameContainer.removeChild(gameContainer.lastChild);
+  }
+
+  //clear variables
+  score=100;
+  firstDivColor=null;
+  index=null;
+  divsOpened=0;
+
+  //create display
+  shuffledColors = shuffle(COLORS)
+  createDisplay(shuffledColors);
 }
 
 // when the DOM loads

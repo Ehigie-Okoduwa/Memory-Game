@@ -45,7 +45,6 @@ let shuffledColors = shuffle(COLORS);
 // it creates a new div and gives it a class with the value of the color
 // it also adds an event listener for a click for each card
 function createDivsForColors() {
-  
   playBtn();
 }
 
@@ -85,20 +84,14 @@ gameContainer.addEventListener('click',function(e){
       if(class1=='Done'){ 
         return;
       }
-    }
+  }
 
   //increase opened div by 1, if less or equal to 2 run code, unless wait for  second1
   openedDiv++;
   if(openedDiv<=2){
     //loop through parent's classes  
     for(let class1 of e.target.classList){
-      //if the div has already been clicked do nothing
-      if(class1=='Done'){        
-        noEvent(e)
-        return;
-      }
       if(class1=='color'){
-        
         handleCardClick(e);
       }
     }
